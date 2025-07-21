@@ -8,7 +8,12 @@ export class ApplicationsService {
   constructor(private prisma: PrismaService) {}
 
   create(dto: CreateApplicationDto) {
-    return this.prisma.application.create({ data: dto });
+    const data = {
+      ...dto,
+      applicationDate: new Date(dto.applicationDate),
+    };
+
+    return this.prisma.application.create({ data });
   }
 
   findAll() {
